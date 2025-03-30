@@ -1,0 +1,151 @@
+/* Container for the converter */
+.converter-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+  
+/* Form styling */
+.converter-form {
+    background-color: #4a2075;
+    border-radius: 10px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Grouping label */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+  
+/* Label styling */
+label {
+    color: white;
+    font-weight: normal;
+    font-size: 14px;
+}
+  
+/* Input and select fields */
+input, select {
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: white;
+    width: 100%;
+}
+  
+/* Custom select dropdown arrow */
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.4-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px;
+    padding-right: 30px;
+}
+  
+/* Convert button styling */
+.convert-button {
+    background-color: #4a2075;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    align-self: center;
+}
+  
+/* Convert button hover effect */
+.convert-button:hover {
+    background-color: #3a1860;
+}
+  
+/* Result container styles */
+.result-container {
+    background-color: #ebecef;
+    border-radius: 5px;
+    padding: 30px;
+    text-align: left;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+    max-width: 250px;
+    margin: 0 auto;
+    width: 100%;
+}
+  
+/* Heading inside the result container */
+.result-container h2 {
+    color: #666;
+    font-size: 14px;
+    font-weight: normal;
+    margin: 0 0 8px 0;
+    text-align: left;
+}
+  
+/* Result amount styling */
+.result-amount {
+    font-size: 32px;
+    color: #000;
+    margin: 0 0 24px 0;
+    font-weight: 500;
+    text-align: left;
+}
+  
+/* Section for displaying past calculations */
+.calculations-made {
+    color: #666;
+    font-size: 14px;
+    margin: 0 0 8px 0;
+    padding-top: 24px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+  
+/* Styling for calculation numbers */
+.calculations-made-number {
+    font-size: 32px;
+    color: #000;
+    margin: 0;
+    font-weight: 500;
+    text-align: left;
+}
+  
+/* Responsive design adjustments */
+@media (min-width: 768px) {
+    .converter-form {
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 15px;
+        padding: 50px;
+    }
+  
+    .form-group {
+        flex: 1;
+    }
+  
+    .convert-button {
+        margin-top: 0;
+        padding: 12px 30px;
+    }
+}
+  
+@media (max-width: 767px) {
+    .converter-form {
+        border-radius: 0;
+        padding: 20px;
+    }
+    
+    .result-container {
+        border-radius: 0;
+    }
+  }
