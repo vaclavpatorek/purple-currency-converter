@@ -3,7 +3,7 @@ import axios from 'axios';
 import { CurrencyData, CurrencyList } from '../types';
 
 // API key and base URL
-const API_KEY = 'c0d140b6073e5ea122cb1f2e07ac2423';
+const API_KEY = 'd841be5f050627b9076ef43238e7f0ae';
 const API_URL = 'http://data.fixer.io/api';
 
 // Function to get current exchange rates from the API
