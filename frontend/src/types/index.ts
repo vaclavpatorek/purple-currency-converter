@@ -7,11 +7,8 @@ export interface CurrencyData {
     rates: Record<string, number>;
 }
 
-// List of currencies and their codes
-export interface CurrencyList {
-    success: boolean;
-    symbols: Record<string, string>;
-}
+// Currency conversion request
+export type CurrencyList = string[];
 
 // Currency conversion result
 export interface ConversionResult {
@@ -19,5 +16,4 @@ export interface ConversionResult {
     from: string;
     to: string;
     result: number;
-    date: string;
 }
