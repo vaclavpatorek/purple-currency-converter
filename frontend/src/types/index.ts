@@ -7,7 +7,7 @@ export interface CurrencyData {
     rates: Record<string, number>;
 }
 
-// Currency conversion request
+// Array of available currency codes
 export type CurrencyList = string[];
 
 // Currency conversion result

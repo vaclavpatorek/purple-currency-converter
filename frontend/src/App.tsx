@@ -2,9 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import CurrencyConverter from './features/CurrencyConverter';
+import Statistics from './features/Statistics';
+import { ExchangeRatesResponse } from './types/api';
 import './styles/App.css';
 
-// Importing CSS styles for the application
+// Main application component managing currency list and layout
 const App: React.FC = () => {
   // State for the list of currencies
   const [currencyList, setCurrencyList] = useState<string[]>([]);
@@ -13,14 +15,14 @@ const App: React.FC = () => {
   // State for error messages
   const [error, setError] = useState<string | null>(null);
 
-  // Effect to fetch the list of currencies from the backend
+  // Fetch available currencies on component mount
   useEffect(() => {
     const fetchCurrencyList = async () => {
       try {
         // Clear any previous errors
         setIsLoading(true);
         // Fetch the currency list from the backend
-        const response = await axios.get('http://localhost:5001/api/rates');
+        const response = await axios.get<ExchangeRatesResponse>('http://localhost:5001/api/rates');
         setCurrencyList(Object.keys(response.data.rates));
         setError(null);
       } catch (err) {
@@ -32,7 +34,6 @@ const App: React.FC = () => {
         setIsLoading(false);
       }
     };
-
     // Call the function to fetch currency list
     fetchCurrencyList();
   }, []);
@@ -42,7 +43,6 @@ const App: React.FC = () => {
     <div className="app-container">
       {/* Header section */}
       <header>
-        {/* Title of the application */}
         <h1>Purple Currency Converter</h1>
       </header>
       <main>
@@ -53,13 +53,14 @@ const App: React.FC = () => {
           // Display error message if any
           <p className="error">{error}</p>
         ) : (
-          // Render the CurrencyConverter component with the fetched currency list
-          <CurrencyConverter currencyList={currencyList} />
+          <>
+            <CurrencyConverter currencyList={currencyList} />
+            <Statistics />
+          </>
         )}
       </main>
     </div>
   );
 };
 
-// Exporting the App component as default
 export default App;

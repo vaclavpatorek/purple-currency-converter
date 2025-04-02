@@ -5,23 +5,22 @@ import dotenv from 'dotenv';
 // Reading variables from .env file
 dotenv.config();
 
-// URL and API key for Fixer.io API
-const API_URL = 'http://data.fixer.io/api';
-const API_KEY = process.env.API_KEY;
-
 // Function to get current exchange rates
 export const getExchangeRates = async () => {
-  const response = await axios.get(`${API_URL}/latest`, {
-    params: { access_key: API_KEY },
-  });
-
-  // Check if the response is successful
-  if (!response.data.success) {
-    throw new Error('Failed to fetch exchange rates');
+  try {
+    // Fetch exchange rates
+    const response = await axios.get(`http://data.fixer.io/api/latest?access_key=${process.env.API_KEY}`);
+    // Check if the request was successful
+    if (!response.data.success) {
+      // Throw an error if the request failed
+      throw new Error('Failed to fetch exchange rates');
+    }
+    return response.data;
+  } catch (error) {
+    // Log error
+    console.error('Error fetching exchange rates:', error);
+    throw error;
   }
-
-  // Returning data from API
-  return response.data; 
 };
 
 // Function to convert currency

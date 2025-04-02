@@ -1,0 +1,94 @@
+/* Main container for the statistics section */
+.statistics-container {
+  margin-top: 30px;
+  background-color: #4a2075;
+  border-radius: 10px;
+  padding: 30px;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Statistics section title styling */
+.statistics-container h2 {
+  margin: 0 0 20px 0;
+  font-size: 20px;
+  font-weight: normal;
+}
+
+/* Grid layout for statistics cards */
+.statistics-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Individual statistic card styling */
+.stat-card {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 5px;
+  width: 200px;
+}
+
+/* Statistic card title */
+.stat-card h3 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  font-weight: normal;
+  color: white;
+  opacity: 1;
+  text-align: left;
+}
+
+/* Statistic value display */
+.stat-value {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Loading and error state styling */
+.statistics-loading, .statistics-error {
+  margin: 30px 15px 0;
+  text-align: center;
+  padding: 20px;
+  background-color: #4a2075;
+  border-radius: 10px;
+  color: white;
+}
+
+/* Error state specific styling */
+.statistics-error {
+  background-color: #ff4444;
+}
+
+/* Responsive design adjustments */
+@media (min-width: 768px) {
+  .statistics-container {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .statistics-grid {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .stat-card {
+    width: 250px;
+  }
+}
+
+/* Responsive design adjustments */
+@media (max-width: 767px) {
+  .statistics-container {
+    padding: 20px;
+    width: 240px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+} 

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { CurrencyList, ConversionResult } from '../types';
+import { ConversionResponse } from '../types/api';
 import '../styles/CurrencyConverter.css';
 
 // Properties interface defining what data the component requires
@@ -9,7 +10,7 @@ interface CurrencyConverterProperties {
   currencyList: CurrencyList;
 }
 
-// Component for sending requests to the backend and converting currencies
+// Component for currency conversion and history tracking
 const CurrencyConverter: React.FC<CurrencyConverterProperties> = ({ currencyList }) => {
   // State for the amount to be converted
   const [amount, setAmount] = useState<number>(0);
@@ -27,7 +28,7 @@ const CurrencyConverter: React.FC<CurrencyConverterProperties> = ({ currencyList
   const [calculationCount, setCalculationCount] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
 
-  // Loading the saved conversion count from local storage
+  // Load saved calculation count on component mount
   useEffect(() => {
     const savedCount = localStorage.getItem('calculationCount');
     if (savedCount) {
@@ -35,15 +36,14 @@ const CurrencyConverter: React.FC<CurrencyConverterProperties> = ({ currencyList
     }
   }, []);
 
-  // Function to perform conversion
-  // This function sends a request to the backend to convert the currency
+  // Handle currency conversion and update statistics
   const handleConvert = async () => {
     try {
       // Clear any previous errors
       setError(null);
 
       // Send a POST request to the backend with the conversion details
-      const response = await axios.post('http://localhost:5001/api/convert', {
+      const response = await axios.post<ConversionResponse>('http://localhost:5001/api/convert', {
         amount,
         from: fromCurrency,
         to: toCurrency,
@@ -65,6 +65,11 @@ const CurrencyConverter: React.FC<CurrencyConverterProperties> = ({ currencyList
       const newCount = calculationCount + 1;
       setCalculationCount(newCount);
       localStorage.setItem('calculationCount', newCount.toString());
+
+      // Update statistics after successful conversion
+      if (window.updateStatistics) {
+        window.updateStatistics();
+      }
     } catch (err) {
       // Handle errors from the backend
       console.error('Error converting currency via backend:', err);
@@ -72,13 +77,13 @@ const CurrencyConverter: React.FC<CurrencyConverterProperties> = ({ currencyList
     }
   };
 
-  // Rendering a container with a form for user input and section for displaying results
   return (
     <div className="converter-container">
-      {/* Form for entering the amount and selecting currencies */}
+      {/* Form for currency conversion */}
       <div className="converter-form">
-        {/* Input field for the amount to convert */}
+        {/* Form group for amount input */}
         <div className="form-group">
+          {/* Label for amount input */}
           <label htmlFor="amount">Amount to convert</label>
           <input
             id="amount"
@@ -88,8 +93,8 @@ const CurrencyConverter: React.FC<CurrencyConverterProperties> = ({ currencyList
             onChange={(e) => setAmount(parseFloat(e.target.value) || 0)}
           />
         </div>
-        {/* Dropdown for selecting the source currency */}
         <div className="form-group">
+          {/* Label for from currency input */}
           <label htmlFor="fromCurrency">From</label>
           <select
             id="fromCurrency"
@@ -103,8 +108,8 @@ const CurrencyConverter: React.FC<CurrencyConverterProperties> = ({ currencyList
             ))}
           </select>
         </div>
-        {/* Dropdown for selecting the target currency */}
         <div className="form-group">
+          {/* Label for to currency input */}
           <label htmlFor="toCurrency">To</label>
           <select
             id="toCurrency"
@@ -119,27 +124,25 @@ const CurrencyConverter: React.FC<CurrencyConverterProperties> = ({ currencyList
           </select>
         </div>
       </div>
-      {/* Button to trigger the conversion */}
+      {/* Button for currency conversion */}
       <button className="convert-button" onClick={handleConvert}>
         Convert currency
       </button>
-     {/* Display error message if any */}
-     {error && <p className="error">{error}</p>}
-            
-            {/* Display conversion result if available */}
-            {result && (
-                <div className="result-container">
-                    <h2>Result</h2>
-                    <p className="result-amount">
-                        {result.result.toFixed(2)} {result.to}
-                    </p>
-                    <p className="calculations-made">Number of calculations made</p>
-                    <p className="calculations-made-number">{calculationCount}</p>
-                </div>
-            )}
+      {error && <p className="error">{error}</p>}
+      {result && (
+        <div className="result-container">
+          {/* Result container */}
+          <h2>Result</h2>
+          <p className="result-amount">
+            {result.result.toFixed(2)} {result.to}
+          </p>
+          <p className="calculations-made">Number of calculations made</p>
+          <p className="calculations-made-number">{calculationCount}</p>
         </div>
+      )}
+    </div>
   );
 };
 
-// Exporting the component for use in other parts of the application
+// Export the component for use in other parts of the application
 export default CurrencyConverter;
