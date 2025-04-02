@@ -9,8 +9,8 @@
 2. **Navigate to the Backend Directory**  
 cd backend  
 
-3. **Set Up Environment Variables**
-Insert your api key and Mongo DB URI into the .env file.
+3. **Set Up Environment Variables**  
+Insert your api key and Mongo DB URI into the .env file.  
 
 4. **Install Dependencies**  
 npm install  
